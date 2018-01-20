@@ -17,5 +17,7 @@ public class ContactdataServiceApplication extends RepositoryRestConfigurerAdapt
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config){
         config.exposeIdsFor(Address.class);
+        config.exposeIdsFor(Email.class);
+        config.exposeIdsFor(Phone.class);
     }
 }
