@@ -1,0 +1,7 @@
+package bfh.sloths.yellowpages.contactdataservice;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface PhoneRepository extends CrudRepository<Phone, String> {
+
+}

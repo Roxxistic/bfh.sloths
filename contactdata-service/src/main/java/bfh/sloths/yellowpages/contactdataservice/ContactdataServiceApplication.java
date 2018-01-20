@@ -1,4 +1,4 @@
-package bfh.sloths.yellowpages.personservice;
+package bfh.sloths.yellowpages.contactdataservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,14 +8,14 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 
 @SpringBootApplication
 @EnableEurekaClient
-public class PersonServiceApplication extends RepositoryRestConfigurerAdapter {
+public class ContactdataServiceApplication extends RepositoryRestConfigurerAdapter {
 
 	public static void main(String[] args) {
-	    SpringApplication.run(PersonServiceApplication.class, args);
+		SpringApplication.run(ContactdataServiceApplication.class, args);
 	}
 
-	@Override
-	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config){
-	    config.exposeIdsFor(Person.class);
+    @Override
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config){
+        config.exposeIdsFor(Address.class);
     }
 }
