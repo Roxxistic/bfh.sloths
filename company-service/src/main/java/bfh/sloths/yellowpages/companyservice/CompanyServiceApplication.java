@@ -14,6 +14,7 @@ public class CompanyServiceApplication extends RepositoryRestConfigurerAdapter {
 	    SpringApplication.run(CompanyServiceApplication.class, args);
 	}
 
+	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config){
 	    config.exposeIdsFor(Company.class);
     }
