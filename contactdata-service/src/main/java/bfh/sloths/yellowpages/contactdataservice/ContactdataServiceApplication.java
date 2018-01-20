@@ -1,5 +1,8 @@
 package bfh.sloths.yellowpages.contactdataservice;
 
+import bfh.sloths.yellowpages.contactdataservice.Models.Address;
+import bfh.sloths.yellowpages.contactdataservice.Models.Email;
+import bfh.sloths.yellowpages.contactdataservice.Models.Phone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

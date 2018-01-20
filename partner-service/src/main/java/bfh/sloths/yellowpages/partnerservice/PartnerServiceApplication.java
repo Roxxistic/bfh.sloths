@@ -1,5 +1,7 @@
 package bfh.sloths.yellowpages.partnerservice;
 
+import bfh.sloths.yellowpages.partnerservice.Models.Company;
+import bfh.sloths.yellowpages.partnerservice.Models.Person;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

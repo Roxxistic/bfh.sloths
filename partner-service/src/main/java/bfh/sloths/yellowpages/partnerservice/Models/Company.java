@@ -1,4 +1,4 @@
-package bfh.sloths.yellowpages.partnerservice;
+package bfh.sloths.yellowpages.partnerservice.Models;
 
 import org.hibernate.annotations.GenericGenerator;
 

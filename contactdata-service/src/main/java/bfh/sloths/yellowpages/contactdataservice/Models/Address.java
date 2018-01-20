@@ -1,4 +1,4 @@
-package bfh.sloths.yellowpages.partnerservice;
+package bfh.sloths.yellowpages.contactdataservice.Models;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Person {
+public class Address {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
