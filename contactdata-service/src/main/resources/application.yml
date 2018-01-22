@@ -1,0 +1,17 @@
+# Spring properties
+spring:
+  application:
+    name: contactdata-service
+  h2:
+    console:
+      enabled: true
+
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1000/eureka/
+
+# HTTP Server
+server:
+  port: 1003   # HTTP (Tomcat) port
