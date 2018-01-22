@@ -7,14 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Company {
-
+public abstract class Partner {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    private String firma;
+    private String name;
 
     public String getId() {
         return id;
@@ -24,11 +23,6 @@ public class Company {
         this.id = id;
     }
 
-    public String getFirma() {
-        return this.firma;
-    }
+    public abstract String getName();
 
-    public void setFirma(String firma) {
-        this.firma = firma;
-    }
 }
