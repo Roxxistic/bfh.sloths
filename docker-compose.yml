@@ -1,0 +1,34 @@
+version: "2"
+services:
+  registry:
+    build: ./registry-service
+    networks:
+      - yellowpages
+    ports:
+      - "1000:1000"
+  partner:
+    build: ./partner-service
+    networks:
+      - yellowpages
+  contactdata:
+    build: ./contactdata-service
+    networks:
+      - yellowpages
+  partner-contactdata:
+    build: ./partner-contactdata-service
+    networks:
+      - yellowpages
+  frontend:
+    build: ./frontend-service
+    networks:
+      - yellowpages
+    ports:
+      - "8080:8080"
+  monitor:
+    build: ./monitor-service
+    networks:
+      - yellowpages
+    ports:
+      - "1009:1009"
+networks:
+  yellowpages:
