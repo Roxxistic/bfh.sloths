@@ -25,5 +25,9 @@
 ### Schwierigkeiten bei der Umsetzung und deren Lösung
 * Docker auf Microsoft Windows
 * Aufteilung des Codes auf verschiedene Projekte oder alles in einem Projekt?
+* Welche Dependencies werden wirklich benötigt? (Test, Actuator, HystrixDashboard)
+* Aufteilung des Domain Models.
+* Mehrere Domain Entities pro Service.
+* Mapping, falls Unterschiede in Model.
 
 ### Stand des Projektes bei Abgabetermin (31.01.2018)
