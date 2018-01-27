@@ -15,8 +15,8 @@ zuul:
     partner-service:
       path: /partners/**
       serviceId: partner-service
-      stripPrefix: false
+      stripPrefix: true
     contact-service:
       path: /contacts/**
       serviceId: contact-service
-      stripPrefix: false
+      stripPrefix: true
