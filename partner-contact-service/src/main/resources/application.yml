@@ -1,0 +1,30 @@
+# Spring properties
+spring:
+  application:
+    name: partner-contact-service
+
+# Discovery Service Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+
+# Enable Hystrix (circuit breaker)
+feign:
+  hystrix:
+    enabled: true
+
+# HTTP Server
+server:
+  port: 4444 # HTTP (tomcat) port
+
+# Service Time Out
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+ribbon:
+  ReadTimeout: 100000
+  ConnectTimeout: 10000
