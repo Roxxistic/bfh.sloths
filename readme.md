@@ -20,7 +20,7 @@
 
 ### Domain Model
 
-![original domain model UML](https://github.com/Roxxistic/bfh.sloths/readme_domainmodel_original.png)
+![original domain model UML](https://raw.githubusercontent.com/Roxxistic/bfh.sloths/master/readme_domainmodel_original.png)
 
 * Problem: Zum Zeitpunkt der Festsetzung eines Domain Models war uns noch nicht genügend bewusst, dass eine Micro-Services Architektur angestrebt wird - und was dies bedeutet. Daher besteht das ursprüngliche Domain Model aus Klassen, die sehr stark Verknüpft sind.
 
