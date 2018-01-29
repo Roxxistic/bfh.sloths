@@ -15,7 +15,7 @@ public class Address {
     private String id;
 
     private String street;
-    private String houseNumber;
+    private String housenumber;
     private String zip;
     private String place;
 
@@ -37,12 +37,12 @@ public class Address {
         this.street = street;
     }
 
-    public String getHouseNumber() {
-        return houseNumber;
+    public String getHousenumber() {
+        return housenumber;
     }
 
-    public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
+    public void setHousenumber(String housenumber) {
+        this.housenumber = housenumber;
     }
 
     public String getZip() {
