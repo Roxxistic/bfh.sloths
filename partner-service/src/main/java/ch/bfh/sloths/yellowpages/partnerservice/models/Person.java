@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Person {
+public class Person implements Partner {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -41,4 +41,9 @@ public class Person {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    public String getName(){
+        return this.firstname + " " + this.lastname;
+    }
 }
+
