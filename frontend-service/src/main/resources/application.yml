@@ -1,7 +1,7 @@
 # Spring properties
 spring:
   application:
-    name: frontend-service
+    name: frontend-service # the Service ID
 
 # Discovery Server Access
 eureka:
@@ -20,3 +20,7 @@ zuul:
       path: /contacts/**
       serviceId: contact-service
       stripPrefix: true
+    partner-contact-service:
+      path: /partnercontacts/**
+      serviceId: partner-contact-service
+      stripPreifx: true
