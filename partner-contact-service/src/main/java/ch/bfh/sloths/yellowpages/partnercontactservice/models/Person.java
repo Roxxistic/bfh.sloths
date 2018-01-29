@@ -3,9 +3,9 @@ package ch.bfh.sloths.yellowpages.partnercontactservice.models;
 public class Person {
     private String id;
 
-    private String lastName;
+    private String lastname;
 
-    private String firstName;
+    private String firstname;
 
     public String getId() {
         return id;
@@ -15,19 +15,20 @@ public class Person {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 }
+

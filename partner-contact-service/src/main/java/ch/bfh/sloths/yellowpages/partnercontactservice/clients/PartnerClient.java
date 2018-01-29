@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @FeignClient(value = "partner-service")
-public interface PersonClient {
+public interface PartnerClient {
 
     @RequestMapping(method = GET, value = "/persons")
     Resources<Person> getPersons();
 
     @RequestMapping(method = GET, value = "/persons/{id}")
     Resource<Person> getPerson(@PathVariable("id") String id);
+
+
 }

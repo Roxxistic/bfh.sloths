@@ -4,28 +4,20 @@ import org.springframework.hateoas.ResourceSupport;
 
 import java.util.Collection;
 
-public class PersonContact extends ResourceSupport {
+public class CompanyContact extends ResourceSupport {
 
-    private String lastname;
-    private String firstname;
+    private String name;
+
     private Collection<Address> addresses;
     private Collection<Phone> phones;
     private Collection<Email> emails;
 
-    public String getLastname() {
-        return lastname;
+    public String getName() {
+        return name;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Collection<Address> getAddresses() {
@@ -52,4 +44,3 @@ public class PersonContact extends ResourceSupport {
         this.emails = emails;
     }
 }
-

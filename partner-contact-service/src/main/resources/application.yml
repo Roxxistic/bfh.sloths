@@ -1,7 +1,7 @@
 # Spring properties
 spring:
   application:
-    name: partner-contact-service
+    name: partner-contact-service # the Service ID
 
 # Discovery Service Access
 eureka:
