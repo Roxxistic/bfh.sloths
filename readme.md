@@ -28,12 +28,42 @@ Dieses Projekt ist im Rahmen eines Moduls an der [BFH](https://www.bfh.ch) entst
 
 ### Installation
 
-### Usage
+Vorbedingung:
 
-### Entwicklung
+- Java 8 (zu Java 9 siehe unten)
+- Maven
+- Docker
 
-Bei der Entwicklung ist IntelliJ IDEA verwendet worden. Der Vorteil (neben den üblichen Benefits von IntelliJ) ist die simple Integration von Maven (automatisches Importieren von Dependencies) und Spring-Boot (Initializr).
-Jeder Service ist als eigenständiges IntelliJ IDEA Project erstellt worden. Sie befinden sich alle in einem gemeinesamen Verzeichnis. Dieses enthält zusätzlich ein übergeordnetes .POM, welches die einzelnen Spring-Boot Projekte als Module referenziert und ein Docker-Compose File.
+### Variante: Spring-Boot:run
+
+Starte jede Spring-Boot Applikation im jeweiligen Directory mit `mvn Spring-Boot:run` (einigermassen praktisch im integrierten Terminal von IntelliJ).
+
+Dabei muss folgende Reihenfolge eingehalten werden:
+
+1. registry-service
+2. partner-service
+3. contact-service
+4. partner-contact-service
+5. frontend-service
+
+Es stehen folgende Endpoints zur Verfügung:
+
+- http://localhost:1111 Eureka
+- http://localhost:2222 Partner-Service (HAL Browser)
+- http://localhost:3333 Contact-Service (HAL Browser)
+- http://localhost:4444 Partner-Contact-Service (HAL Browser)
+- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
+- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
+- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
+
+### Variante: docker-compose up
+
+Im root Verzeichnis findet sich ein Docker-Compose File.
+
+Es genügt mit `docker-compose up` zu starten.
+
+Anzahl:
+$$$$$$
 
 ## Architecture
 
@@ -75,10 +105,42 @@ Das Vorgehen war, wie [offiziell beschrieben](https://docs.docker.com/docker-for
 Folgender Fehler ist aufgetreten:
 ![original domain model UML](https://raw.githubusercontent.com/Roxxistic/bfh.sloths/master/readme-images/readme_docker_error.png)
 
+Diese Problem scheint seit einem kürzlichen Update von Windows 10 bei vielen Usern aufzutreten. Die [Emotionen](https://github.com/docker/for-win/issues/606#issuecomment-358697935) gehen hoch. Verschiedenste Lösungen werden präsentiert. Für uns war folgender Tipp hilfreich:
+
+> Navigating to C:\Users\Public\Documents\Hyper-V\Virtual hard disks\ and requesting access, then restarting the Docker for Windows service fixed the issue for me. [tsasioglu](https://github.com/docker/for-win/issues/606#issuecomment-350027237)
+
 ### Aufteilung des Codes auf verschiedene Projekte oder alles in einem Projekt?
+
+Bei der Entwicklung ist IntelliJ IDEA verwendet worden. Der Vorteil (neben den üblichen Benefits von IntelliJ) ist die simple Integration von Maven (automatisches Importieren von Dependencies) und Spring-Boot (Initializr).
+
+Jeder Service ist als eigenständiges IntelliJ IDEA Project erstellt worden. Sie befinden sich alle in einem gemeinesamen Verzeichnis. Dieses enthält zusätzlich ein übergeordnetes .POM, welches die einzelnen Spring-Boot Projekte als Module referenziert und ein Docker-Compose File.
+
+Dies entspricht unserer Meinung nach der Idee, dass Microservices von verschiedenen Teams gebaut und gepflegt werden. Somit sollte es sich um verschiedene Projekte handeln. Zudem ist dies mit IntelliJ die angenehmste Variante: Jedes Projekt kann mit dem integrierten Initializer erstellt werden.
+
+### JAVA 9
+
+Folgendes Problem hat uns einige Zeit geraubt:
+
+![original domain model UML](https://raw.githubusercontent.com/Roxxistic/bfh.sloths/master/readme-images/readme_java9.png)
+
+Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE enthalten. In JAVA 9 jedoch ist dies nur noch über EE erhältlich. Der Einfachheit halber ist JAVA 8 verwendet worden.
+
+(Danke an [rvillars](https://github.com/rvillars) für den Tipp. Siehe auch [Stackoverflow](https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j))
+
+### Vorgehen bei der Entwicklung
+
+
+
 ### Welche Dependencies werden wirklich benötigt? (Test, Actuator, HystrixDashboard)
+
+
+
 ### Aufteilung des Domain Models.
+
+
 ### Mehrere Domain Entities pro Service.
+
+
 ### Mapping, falls Unterschiede in Model.
 
 ### Stand des Projektes bei Abgabetermin (31.01.2018)
