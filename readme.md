@@ -144,3 +144,13 @@ Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE
 ### Mapping, falls Unterschiede in Model.
 
 ### Stand des Projektes bei Abgabetermin (31.01.2018)
+
+### Frontend Proxy
+
+Wir erwarten, über die URL http://localhost:8080/partners/ auf den Partner-Service zugreifen zu können. Dies funktioniert jedoch nicht. Stattdessen erhalten wir den erwarteten HAL Browser über http://localhost:8080/partner-service/. Stattdessen begrüsst uns eine Whitelabel Error Page.
+
+![Screenshot Frontendproxy Whitelabel Page](https://raw.githubusercontent.com/Roxxistic/bfh.sloths/master/readme-images/readme_frontendproxy_whitelabel.png)
+
+Wenn wir jedoch (anders als in der Demo) im application.yml des Frontend-Service `zuul.routes.partner-service.stripPrefix:true` setzen, so werden wir erfolgreich über http://localhost:8080/partners/browser/index.html#/partners/ mit dem Partner-Service HAL Browser verbunden.
+
+Dasselbe gilt natürlich auch für den Contact-Service und den Partner-Contact-Service.
