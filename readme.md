@@ -50,10 +50,19 @@ Dabei muss folgende Reihenfolge eingehalten werden:
 
 #### Variante: docker-compose up
 
-Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten.
+Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten. Die Anzahl Instanzen pro Service kann über das Flag `--scale` bestimmt werden, z.B. `docker-compose up --scale partner-contact=5` um 5 Instanzen des partner-contact-services zu generieren.
 
-Anzahl:
-$$$$$$
+### Services konsumieren
+
+Es stehen folgende Endpoints zur Verfügung:
+
+- http://localhost:1111 Eureka
+- http://localhost:2222 Partner-Service (HAL Browser)
+- http://localhost:3333 Contact-Service (HAL Browser)
+- http://localhost:4444 Partner-Contact-Service (HAL Browser)
+- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
+- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
+- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Architektur
 
@@ -95,11 +104,6 @@ contact-service</td>
 <tr>
 <td>partner-contact-service</td>
 <td>Bietet Zugriff auf die Verknüpfung von Contacts und Partners.</td>
-<td></td>
-</tr>
-<tr>
-<td>frontend-service</td>
-<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
 <td>
 
 - Eureka Client
@@ -109,6 +113,16 @@ contact-service</td>
 - Actuator
 - REST
 - HAL Browser
+
+</td>
+</tr>
+<tr>
+<td>frontend-service</td>
+<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
+<td>
+
+- Eureka Client
+- Zuul
 
 </td>
 </tr>
@@ -129,18 +143,6 @@ contact-service</td>
 
 
 ### Domains
-
-### Services konsumieren
-
-Es stehen folgende Endpoints zur Verfügung:
-
-- http://localhost:1111 Eureka
-- http://localhost:2222 Partner-Service (HAL Browser)
-- http://localhost:3333 Contact-Service (HAL Browser)
-- http://localhost:4444 Partner-Contact-Service (HAL Browser)
-- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
-- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
-- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Kritische Reflexion
 
