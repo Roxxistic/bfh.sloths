@@ -50,10 +50,19 @@ Dabei muss folgende Reihenfolge eingehalten werden:
 
 #### Variante: docker-compose up
 
-Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten.
+Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten. Die Anzahl Instanzen pro Service kann über das Flag `--scale` bestimmt werden, z.B. `docker-compose up --scale partner-contact=5` um 5 Instanzen des partner-contact-services zu generieren.
 
-Anzahl:
-$$$$$$
+### Services konsumieren
+
+Es stehen folgende Endpoints zur Verfügung:
+
+- http://localhost:1111 Eureka
+- http://localhost:2222 Partner-Service (HAL Browser)
+- http://localhost:3333 Contact-Service (HAL Browser)
+- http://localhost:4444 Partner-Contact-Service (HAL Browser)
+- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
+- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
+- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Architektur
 
@@ -134,18 +143,6 @@ contact-service</td>
 
 
 ### Domains
-
-### Services konsumieren
-
-Es stehen folgende Endpoints zur Verfügung:
-
-- http://localhost:1111 Eureka
-- http://localhost:2222 Partner-Service (HAL Browser)
-- http://localhost:3333 Contact-Service (HAL Browser)
-- http://localhost:4444 Partner-Contact-Service (HAL Browser)
-- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
-- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
-- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Kritische Reflexion
 
