@@ -67,6 +67,70 @@ $$$$$$
 
 ## Architecture
 
+Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des Moduls orientiert:
+
+<table>
+<thead>
+<tr>
+<td>Service</td>
+<td>Zweck</td>
+<td>Dependencies</td>
+<td></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>registry-service</td>
+<td>Findet Microservices.</td>
+<td>
+
+- Eureka Server
+
+</td>
+<td></td>
+</tr>
+<tr>
+<td>partner-service</td>
+<td>Verwaltet die Entities Person und Company unter dem Oberbegriff "Partner": Persistenz, REST, HAL-Browser.</td>
+<td>
+
+- Eureka Client
+- REST
+- JPA
+- H2
+- HAL Browser
+
+</td>
+<td></td>
+</tr>
+<tr>
+<td>contact-service</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>partner-contact-service</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>frontend-service</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>monitoring-service</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
 ### Domains
 
 ### Services
@@ -127,12 +191,7 @@ Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE
 
 (Danke an [rvillars](https://github.com/rvillars) für den Tipp. Siehe auch [Stackoverflow](https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j))
 
-### Vorgehen bei der Entwicklung
-
-
-
 ### Welche Dependencies werden wirklich benötigt? (Test, Actuator, HystrixDashboard)
-
 
 
 ### Aufteilung des Domain Models.
@@ -154,3 +213,13 @@ Wir erwarten, über die URL http://localhost:8080/partners/ auf den Partner-Serv
 Wenn wir jedoch (anders als in der Demo) im application.yml des Frontend-Service `zuul.routes.partner-service.stripPrefix:true` setzen, so werden wir erfolgreich über http://localhost:8080/partners/browser/index.html#/partners/ mit dem Partner-Service HAL Browser verbunden.
 
 Dasselbe gilt natürlich auch für den Contact-Service und den Partner-Contact-Service.
+
+### Aus der Perspektive von C# Entwicklern
+
+Wir sind beide beruflich im Kontext von C#, .NET, respektive ASP.NET tätig. Sowohl punkto C# als auch Java sind die Levels unterschiedlich. Die Welt von Spring-Boot, Netflix OSS, Maven und Docker weicht doch einiges von den Erlebnissen mit .NET ab. Einige kleine Feststellungen:
+
+- Spring-Boot scheint Meister im Vermeiden von Scaffolding zu sein. Es genügen einige wenige Annotationen auf Klassen oder Funktionen, um Service Discovery, Monitoring, Domain Entities, Repositories, RestServices usw. nutzen zu können.
+- Es wird einiges an Flexibilität und Einfachheit geboten. So genügt es, ein SQL File in den Resources zu hinterlegen um Seed Data konsumieren zu können.
+- Diese Einfachheit bedingt gleichzeitig ein sehr hohes Level an Standards. Spring-Boot ist stark opinionated. Dies ist einerseits eine grosse Erleichterung um schnell ein etwas Simples aufbauen zu können. Andererseits ist wird der Blick auf die Konfigurationsmöglichkeiten so jedoch etwas verschleiert. Zudem scheint es für jedes Problem mehrere sehr gut geeignete Lösungen zu geben. Für ein komplexeres Problem, wie mehrere Microservices die zusammenarbeiten sollen, führt dies schnell zu einer Vielzahl an möglichen Lösungen. Dieses Problem anzugehen, erfordert also ein gutes Verständnis des Zusammenspiels der Tools und stellt somit eine gewisse Lernkurve.
+- Maven im Sinne eines Repositories an Tools erinnert stark an die Nugets der .NET Welt. Beiderorts kann Verwendung mehrere solcher schnell zu komplexen Abhängigkeiten führen. Die Spring-Boot Startes liefern hier eine sehr schöne, einfache Hilfestellung.
+- Der Tool-Stack von Spring und Netflix OSS ist beeindruckend. Auch hier die Einfachheit im Einzelnen und die Komplexität durch die grosse Menge an Tools, die zusammen spielen können.
