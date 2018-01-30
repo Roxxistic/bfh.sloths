@@ -1,2 +1,0 @@
-insert into PERSON(ID, FIRSTNAME, LASTNAME) values ('402881f1605ebf1501605ebf87700000','Homer', 'Simpson');
-insert into PERSON(ID, FIRSTNAME, LASTNAME) values ('402881f1605ebf1501605ebf87700001','Ned', 'Flanders');

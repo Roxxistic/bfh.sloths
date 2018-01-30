@@ -3,32 +3,32 @@ services:
   registry:
     build: ./registry-service
     networks:
-      - swos
+      - sloths
     ports:
       - "1111:1111"
-  person:
-    build: ./person-service
+  partner:
+    build: ./partner-service
     networks:
-      - swos
-  address:
-    build: ./address-service
+      - sloths
+  contact:
+    build: ./contact-service
     networks:
-      - swos
-  person-address:
-    build: ./person-address-service
+      - sloths
+  partner-contact:
+    build: ./partner-contact-service
     networks:
-      - swos
+      - sloths
   frontend:
     build: ./frontend-service
     networks:
-      - swos
+      - sloths
     ports:
       - "8080:8080"
   monitor:
     build: ./monitor-service
     networks:
-      - swos
+      - sloths
     ports:
       - "9999:9999"
 networks:
-  swos:
+  sloths:
