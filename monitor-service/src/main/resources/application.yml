@@ -6,7 +6,7 @@ spring:
 # Eureka
 eureka:
   client:
-    registryFetchInvervalSeconds: 5
+    registryFetchIntervalSeconds: 5
     serviceUrl:
       defaultZone: http://localhost:1111/eureka/
 
