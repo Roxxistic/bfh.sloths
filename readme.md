@@ -34,7 +34,9 @@ Vorbedingung:
 - Maven
 - Docker
 
-### Variante: Spring-Boot:run
+### Applikation starten
+
+#### Variante: Spring-Boot:run
 
 Starte jede Spring-Boot Applikation im jeweiligen Directory mit `mvn spring-boot:run` (einigermassen praktisch im integrierten Terminal von IntelliJ).
 
@@ -46,36 +48,23 @@ Dabei muss folgende Reihenfolge eingehalten werden:
 4. partner-contact-service
 5. frontend-service
 
-Es stehen folgende Endpoints zur Verfügung:
+#### Variante: docker-compose up
 
-- http://localhost:1111 Eureka
-- http://localhost:2222 Partner-Service (HAL Browser)
-- http://localhost:3333 Contact-Service (HAL Browser)
-- http://localhost:4444 Partner-Contact-Service (HAL Browser)
-- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
-- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
-- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
-
-### Variante: docker-compose up
-
-Im root Verzeichnis findet sich ein Docker-Compose File.
-
-Es genügt mit `docker-compose up` zu starten.
+Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten.
 
 Anzahl:
 $$$$$$
 
-## Architecture
+## Architektur
 
 Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des Moduls orientiert:
 
 <table>
 <thead>
 <tr>
-<td>Service</td>
-<td>Zweck</td>
-<td>Dependencies</td>
-<td></td>
+<th>Service</th>
+<th>Zweck</th>
+<th>Dependencies</th>
 </tr>
 </thead>
 <tbody>
@@ -87,11 +76,12 @@ Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des 
 - Eureka Server
 
 </td>
-<td></td>
 </tr>
 <tr>
-<td>partner-service</td>
-<td>Verwaltet die Entities Person und Company unter dem Oberbegriff "Partner": Persistenz, REST, HAL-Browser.</td>
+<td>partner-service
+
+contact-service</td>
+<td>Verwaltet die Entities Person und Company unter dem Oberbegriff "Partner" resp. Address, Phone und Email unter "Contact". Persistenz, REST, HAL-Browser.</td>
 <td>
 
 - Eureka Client
@@ -101,31 +91,38 @@ Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des 
 - HAL Browser
 
 </td>
-<td></td>
-</tr>
-<tr>
-<td>contact-service</td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>partner-contact-service</td>
-<td></td>
-<td></td>
+<td>Bietet Zugriff auf die Verknüpfung von Contacts und Partners.</td>
 <td></td>
 </tr>
 <tr>
 <td>frontend-service</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
+<td>
+
+- Eureka Client
+- Feign (REST Services nutzen)
+- Hystrix (Circuit Breaker)
+- Hystrix Dashboard
+- Actuator
+- REST
+- HAL Browser
+
+</td>
 </tr>
 <tr>
 <td>monitoring-service</td>
-<td></td>
-<td></td>
-<td></td>
+<td>Überwachen des Gesundheitszustandes der Microservices inkl. Dashboard.</td>
+<td>
+
+- Eureka Client
+- Actuator
+- Hystrix Dashboard
+- Turbine
+
+</td>
 </tr>
 </tbody>
 </table>
@@ -133,7 +130,17 @@ Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des 
 
 ### Domains
 
-### Services
+### Services konsumieren
+
+Es stehen folgende Endpoints zur Verfügung:
+
+- http://localhost:1111 Eureka
+- http://localhost:2222 Partner-Service (HAL Browser)
+- http://localhost:3333 Contact-Service (HAL Browser)
+- http://localhost:4444 Partner-Contact-Service (HAL Browser)
+- http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
+- http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
+- http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Kritische Reflexion
 
