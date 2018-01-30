@@ -95,11 +95,6 @@ contact-service</td>
 <tr>
 <td>partner-contact-service</td>
 <td>Bietet Zugriff auf die Verknüpfung von Contacts und Partners.</td>
-<td></td>
-</tr>
-<tr>
-<td>frontend-service</td>
-<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
 <td>
 
 - Eureka Client
@@ -109,6 +104,16 @@ contact-service</td>
 - Actuator
 - REST
 - HAL Browser
+
+</td>
+</tr>
+<tr>
+<td>frontend-service</td>
+<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
+<td>
+
+- Eureka Client
+- Zuul
 
 </td>
 </tr>
