@@ -36,7 +36,7 @@ Vorbedingung:
 
 ### Variante: Spring-Boot:run
 
-Starte jede Spring-Boot Applikation im jeweiligen Directory mit `mvn Spring-Boot:run` (einigermassen praktisch im integrierten Terminal von IntelliJ).
+Starte jede Spring-Boot Applikation im jeweiligen Directory mit `mvn spring-boot:run` (einigermassen praktisch im integrierten Terminal von IntelliJ).
 
 Dabei muss folgende Reihenfolge eingehalten werden:
 
