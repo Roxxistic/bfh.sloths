@@ -1,0 +1,34 @@
+version: "2"
+services:
+  registry:
+    build: ./registry-service
+    networks:
+      - sloths
+    ports:
+      - "1111:1111"
+  partner:
+    build: ./partner-service
+    networks:
+      - sloths
+  contact:
+    build: ./contact-service
+    networks:
+      - sloths
+  partner-contact:
+    build: ./partner-contact-service
+    networks:
+      - sloths
+  frontend:
+    build: ./frontend-service
+    networks:
+      - sloths
+    ports:
+      - "8080:8080"
+  monitor:
+    build: ./monitor-service
+    networks:
+      - sloths
+    ports:
+      - "9999:9999"
+networks:
+  sloths:
