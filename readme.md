@@ -1,18 +1,18 @@
 # Sloths' Yellowpages
 
-## Hintergrund
+## Über dieses Projekt
 
-Dieses Projekt ist im Rahmen eines Moduls an der [BFH](https://www.bfh.ch) entstanden.
+### Entwickler
 
-**Modul**: BTI7515 - Software Entwicklung Open Source 1
+- [Pascal Ammon](https://github.com/ammop2)
+- [Marc Rey](https://github.com/Roxxistic)
 
-**Authors**: [Pascal Ammon](https://github.com/ammop2), [Marc Rey](https://github.com/Roxxistic)
 
-**Supervisor**: Villars Roger
+### Hintergrund
 
-**Deadline**: 31.01.2018
+Dieses Projekt ist an der [BFH](https://www.bfh.ch) im Rahmen des Moduls "BTI7515 - Software Entwicklung Open Source 1" unter Leitung von [Roger Villars]() entstanden.
 
-**Auftrag**: 
+#### Auftrag 
 * Aufgrund eines einfachen UML Domain Models ist mit den im Modul besprochenen Technologien eine kleine Applikation zu bauen. 
 * Fokus der Applikation ist die Microservice-Architektur. Das Frontend ist irrelevant.
 * Technology Stack: 
@@ -23,6 +23,17 @@ Dieses Projekt ist im Rahmen eines Moduls an der [BFH](https://www.bfh.ch) entst
   * Netflix OSS: Eureka, Ribbon, Feign, Zuul, Hystrix, Turbine
   * Docker
 * Es ist eine Dokumentation inkl. Reflexion (dieses readme.md) zu erstellen.
+
+#### Deadline
+31.01.2018
+
+### Ziel
+
+Diese Applikation zeigt die Arbeit mit Microservices anhand eines simplen Addressbuches. Personen und Firmen fallen unter den Oberbegriff "Partner". Addressen, Emails, Telefonnummern unter "Contact".
+
+### Stand des Projektes bei Abgabetermin (31.01.2018)
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 ## Manual
 
@@ -65,6 +76,8 @@ Es stehen folgende Endpoints zur Verfügung:
 - http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
 ## Architektur
+
+### Maven Module / Spring Boot Projekte
 
 Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des Moduls orientiert:
 
@@ -199,19 +212,6 @@ Folgendes Problem hat uns einige Zeit geraubt:
 Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE enthalten. In JAVA 9 jedoch ist dies nur noch über EE erhältlich. Der Einfachheit halber ist JAVA 8 verwendet worden.
 
 (Danke an [rvillars](https://github.com/rvillars) für den Tipp. Siehe auch [Stackoverflow](https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j))
-
-### Welche Dependencies werden wirklich benötigt? (Test, Actuator, HystrixDashboard)
-
-
-### Aufteilung des Domain Models.
-
-
-### Mehrere Domain Entities pro Service.
-
-
-### Mapping, falls Unterschiede in Model.
-
-### Stand des Projektes bei Abgabetermin (31.01.2018)
 
 ### Frontend Proxy
 
