@@ -1,18 +1,18 @@
 # Sloths' Yellowpages
 
-## Hintergrund
+## Über dieses Projekt
 
-Dieses Projekt ist im Rahmen eines Moduls an der [BFH](https://www.bfh.ch) entstanden.
+### Entwickler
 
-**Modul**: BTI7515 - Software Entwicklung Open Source 1
+- [Pascal Ammon](https://github.com/ammop2)
+- [Marc Rey](https://github.com/Roxxistic)
 
-**Authors**: [Pascal Ammon](https://github.com/ammop2), [Marc Rey](https://github.com/Roxxistic)
 
-**Supervisor**: Villars Roger
+### Hintergrund
 
-**Deadline**: 31.01.2018
+Dieses Projekt ist an der [BFH](https://www.bfh.ch) im Rahmen des Moduls "BTI7515 - Software Entwicklung Open Source 1" unter Leitung von [Roger Villars]() entstanden.
 
-**Auftrag**: 
+#### Auftrag 
 * Aufgrund eines einfachen UML Domain Models ist mit den im Modul besprochenen Technologien eine kleine Applikation zu bauen. 
 * Fokus der Applikation ist die Microservice-Architektur. Das Frontend ist irrelevant.
 * Technology Stack: 
@@ -24,6 +24,17 @@ Dieses Projekt ist im Rahmen eines Moduls an der [BFH](https://www.bfh.ch) entst
   * Docker
 * Es ist eine Dokumentation inkl. Reflexion (dieses readme.md) zu erstellen.
 
+#### Deadline
+31.01.2018
+
+### Ziel
+
+Diese Applikation zeigt die Arbeit mit Microservices anhand eines simplen Addressbuches. Personen und Firmen fallen unter den Oberbegriff "Partner". Addressen, Emails, Telefonnummern unter "Contact".
+
+### Stand des Projektes bei Abgabetermin (31.01.2018)
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 ## Manual
 
 ### Installation
@@ -34,7 +45,9 @@ Vorbedingung:
 - Maven
 - Docker
 
-### Variante: Spring-Boot:run
+### Applikation starten
+
+#### Variante: Spring-Boot:run
 
 Starte jede Spring-Boot Applikation im jeweiligen Directory mit `mvn spring-boot:run` (einigermassen praktisch im integrierten Terminal von IntelliJ).
 
@@ -46,6 +59,12 @@ Dabei muss folgende Reihenfolge eingehalten werden:
 4. partner-contact-service
 5. frontend-service
 
+#### Variante: docker-compose up
+
+Im root Verzeichnis findet sich ein Docker-Compose File. Es genügt, mit `docker-compose up` zu starten. Die Anzahl Instanzen pro Service kann über das Flag `--scale` bestimmt werden, z.B. `docker-compose up --scale partner-contact=5` um 5 Instanzen des partner-contact-services zu generieren.
+
+### Services konsumieren
+
 Es stehen folgende Endpoints zur Verfügung:
 
 - http://localhost:1111 Eureka
@@ -56,20 +75,87 @@ Es stehen folgende Endpoints zur Verfügung:
 - http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
 - http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
 
-### Variante: docker-compose up
+## Architektur
 
-Im root Verzeichnis findet sich ein Docker-Compose File.
+### Maven Module / Spring Boot Projekte
 
-Es genügt mit `docker-compose up` zu starten.
+Beim Aufteilung der App in verschiedene Services, haben wir uns an der Demo des Moduls orientiert:
 
-Anzahl:
-$$$$$$
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Zweck</th>
+<th>Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>registry-service</td>
+<td>Findet Microservices.</td>
+<td>
 
-## Architecture
+- Eureka Server
+
+</td>
+</tr>
+<tr>
+<td>partner-service
+
+contact-service</td>
+<td>Verwaltet die Entities Person und Company unter dem Oberbegriff "Partner" resp. Address, Phone und Email unter "Contact". Persistenz, REST, HAL-Browser.</td>
+<td>
+
+- Eureka Client
+- REST
+- JPA
+- H2
+- HAL Browser
+
+</td>
+</tr>
+<tr>
+<td>partner-contact-service</td>
+<td>Bietet Zugriff auf die Verknüpfung von Contacts und Partners.</td>
+<td>
+
+- Eureka Client
+- Feign (REST Services nutzen)
+- Hystrix (Circuit Breaker)
+- Hystrix Dashboard
+- Actuator
+- REST
+- HAL Browser
+
+</td>
+</tr>
+<tr>
+<td>frontend-service</td>
+<td>Reverse Proxy, welcher Zugriff auf partner-service, contact-service und partner-contact-service bietet.</td>
+<td>
+
+- Eureka Client
+- Zuul
+
+</td>
+</tr>
+<tr>
+<td>monitoring-service</td>
+<td>Überwachen des Gesundheitszustandes der Microservices inkl. Dashboard.</td>
+<td>
+
+- Eureka Client
+- Actuator
+- Hystrix Dashboard
+- Turbine
+
+</td>
+</tr>
+</tbody>
+</table>
+
 
 ### Domains
-
-### Services
 
 ## Kritische Reflexion
 
@@ -127,20 +213,22 @@ Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE
 
 (Danke an [rvillars](https://github.com/rvillars) für den Tipp. Siehe auch [Stackoverflow](https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j))
 
-### Vorgehen bei der Entwicklung
+### Frontend Proxy
 
+Wir erwarten, über die URL http://localhost:8080/partners/ auf den Partner-Service zugreifen zu können. Dies funktioniert jedoch nicht. Stattdessen erhalten wir den erwarteten HAL Browser über http://localhost:8080/partner-service/. Stattdessen begrüsst uns eine Whitelabel Error Page.
 
+![Screenshot Frontendproxy Whitelabel Page](https://raw.githubusercontent.com/Roxxistic/bfh.sloths/master/readme-images/readme_frontendproxy_whitelabel.png)
 
-### Welche Dependencies werden wirklich benötigt? (Test, Actuator, HystrixDashboard)
+Wenn wir jedoch (anders als in der Demo) im application.yml des Frontend-Service `zuul.routes.partner-service.stripPrefix:true` setzen, so werden wir erfolgreich über http://localhost:8080/partners/browser/index.html#/partners/ mit dem Partner-Service HAL Browser verbunden.
 
+Dasselbe gilt natürlich auch für den Contact-Service und den Partner-Contact-Service.
 
+### Aus der Perspektive von C# Entwicklern
 
-### Aufteilung des Domain Models.
+Wir sind beide beruflich im Kontext von C#, .NET, respektive ASP.NET tätig. Sowohl punkto C# als auch Java sind die Levels unterschiedlich. Die Welt von Spring-Boot, Netflix OSS, Maven und Docker weicht doch einiges von den Erlebnissen mit .NET ab. Einige kleine Feststellungen:
 
-
-### Mehrere Domain Entities pro Service.
-
-
-### Mapping, falls Unterschiede in Model.
-
-### Stand des Projektes bei Abgabetermin (31.01.2018)
+- Spring-Boot scheint Meister im Vermeiden von Scaffolding zu sein. Es genügen einige wenige Annotationen auf Klassen oder Funktionen, um Service Discovery, Monitoring, Domain Entities, Repositories, RestServices usw. nutzen zu können.
+- Es wird einiges an Flexibilität und Einfachheit geboten. So genügt es, ein SQL File in den Resources zu hinterlegen um Seed Data konsumieren zu können.
+- Diese Einfachheit bedingt gleichzeitig ein sehr hohes Level an Standards. Spring-Boot ist stark opinionated. Dies ist einerseits eine grosse Erleichterung um schnell ein etwas Simples aufbauen zu können. Andererseits ist wird der Blick auf die Konfigurationsmöglichkeiten so jedoch etwas verschleiert. Zudem scheint es für jedes Problem mehrere sehr gut geeignete Lösungen zu geben. Für ein komplexeres Problem, wie mehrere Microservices die zusammenarbeiten sollen, führt dies schnell zu einer Vielzahl an möglichen Lösungen. Dieses Problem anzugehen, erfordert also ein gutes Verständnis des Zusammenspiels der Tools und stellt somit eine gewisse Lernkurve.
+- Maven im Sinne eines Repositories an Tools erinnert stark an die Nugets der .NET Welt. Beiderorts kann Verwendung mehrere solcher schnell zu komplexen Abhängigkeiten führen. Die Spring-Boot Startes liefern hier eine sehr schöne, einfache Hilfestellung.
+- Der Tool-Stack von Spring und Netflix OSS ist beeindruckend. Auch hier die Einfachheit im Einzelnen und die Komplexität durch die grosse Menge an Tools, die zusammen spielen können.
