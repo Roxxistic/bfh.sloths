@@ -3,7 +3,7 @@ package ch.bfh.sloths.yellowpages.partnercontactservice.models;
 public class Phone {
     private String id;
 
-    private String phoneNumber;
+    private String number;
 
     private String partnerId;
 
@@ -15,12 +15,12 @@ public class Phone {
         this.id = id;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getPartnerId() {
