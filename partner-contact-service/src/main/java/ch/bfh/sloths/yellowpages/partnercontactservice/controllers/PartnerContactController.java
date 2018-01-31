@@ -22,15 +22,18 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-public class PersonContactController implements ResourceProcessor<RepositoryLinksResource> {
+public class PartnerContactController implements ResourceProcessor<RepositoryLinksResource> {
 
+    @Qualifier("partner-service")
     @Autowired
     private PartnerClient partnerClient;
 
+    @Qualifier("contact-service")
     @Autowired
     private ContactClient contactClient;
 
     @RequestMapping(value = "/personContact/{id}", method = GET, produces = "application/hal+jason")
+    @ResponseBody
     public Resource<PersonContact> getPersonContact(@PathVariable("id") String id){
         Person person = partnerClient.getPerson(id).getContent();
         Collection<Address> addresses = contactClient.getAddressesForPerson(person.getId()).getContent();
@@ -42,14 +45,15 @@ public class PersonContactController implements ResourceProcessor<RepositoryLink
     }
 
     @RequestMapping(value = "/personContact", method = GET, produces = "application/hal+json")
+    @ResponseBody
     public Resources<PersonContact> getPersonContacts(){
         List<PersonContact> personContactList = new ArrayList<>();
         Resources<Person> persons = partnerClient.getPersons();
 
         for(Person person : persons){
             PersonContact personContact = new PersonContact();
-            personContact.add(ControllerLinkBuilder.linkTo(methodOn(PersonContactController.class).getPersonContact(person.getId())).withSelfRel());
-            personContact.add(ControllerLinkBuilder.linkTo(methodOn(PersonContactController.class).getPersonContact(person.getId())).withRel("personContact"));
+            personContact.add(ControllerLinkBuilder.linkTo(methodOn(PartnerContactController.class).getPersonContact(person.getId())).withSelfRel());
+            personContact.add(ControllerLinkBuilder.linkTo(methodOn(PartnerContactController.class).getPersonContact(person.getId())).withRel("personContact"));
             personContact.setFirstname(person.getFirstname());
             personContact.setLastname(person.getLastname());
             personContact.setAddresses(contactClient.getAddressesForPerson(person.getId()).getContent());
@@ -60,7 +64,7 @@ public class PersonContactController implements ResourceProcessor<RepositoryLink
 
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource repositoryLinksResource) {
-        repositoryLinksResource.add(ControllerLinkBuilder.linkTo(methodOn(PersonContactController.class).getPersonContacts()).withRel("personContact"));
+        repositoryLinksResource.add(ControllerLinkBuilder.linkTo(methodOn(PartnerContactController.class).getPersonContacts()).withRel("personContact"));
         return repositoryLinksResource;
     }
 }
