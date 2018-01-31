@@ -1,7 +1,7 @@
 # Spring properties
 spring:
   application:
-    name: partner-contact-service # the Service ID
+    name: partner-contact-service  # the Service ID
 
 # Discovery Service Access
 eureka:
@@ -12,16 +12,16 @@ eureka:
     leaseRenewalIntervalInSeconds: 5
     leaseExpirationDurationInSeconds: 10
 
-# Enable Hystrix (circuit breaker)
+# Enable Hystrix (circuit breaker) for Feign
 feign:
-  hystrix:
-    enabled: true
+    hystrix:
+        enabled: true
 
 # HTTP Server
 server:
   port: 4444 # HTTP (tomcat) port
 
-# Service Time Out
+# resolve the service time-out exception
 hystrix:
   command:
     default:
