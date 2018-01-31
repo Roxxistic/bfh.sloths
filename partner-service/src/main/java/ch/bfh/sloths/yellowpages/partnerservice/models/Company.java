@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Company implements Partner {
+public class Company {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
