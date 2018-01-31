@@ -33,7 +33,10 @@ Diese Applikation zeigt die Arbeit mit Microservices anhand eines simplen Addres
 
 ### Stand des Projektes bei Abgabetermin (31.01.2018)
 
-$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Derzeit läuft die Applikation noch nicht fehlerfrei. Kopfzerbrechen bereiten uns:
+
+- Docker
+- Verknüpfen der Daten mit Feign Client im Partner-Contact-Service
 
 ## Manual
 
@@ -74,6 +77,7 @@ Es stehen folgende Endpoints zur Verfügung:
 - http://localhost:8080/partners Frontend-Service für Partner-Service (HAL Browser)
 - http://localhost:8080/contacts Frontend-Service für Contact-Service (HAL Browser)
 - http://localhost:8080/partnercontacts Frontend-Service für Partner-Contact-Service (HAL Browser)
+- http://localhost:9999/hystrix Hystrix Dashboard
 
 ## Architektur
 
@@ -212,6 +216,18 @@ Folgendes Problem hat uns einige Zeit geraubt:
 Grund: Gewisse Spring-Boot Starters verwenden JAXB. In JAVA 8 ist JAXB in der SE enthalten. In JAVA 9 jedoch ist dies nur noch über EE erhältlich. Der Einfachheit halber ist JAVA 8 verwendet worden.
 
 (Danke an [rvillars](https://github.com/rvillars) für den Tipp. Siehe auch [Stackoverflow](https://stackoverflow.com/questions/43574426/how-to-resolve-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-in-j))
+
+### Docker Container entfernen
+
+Applikation nicht mehr fehlerfrei mit `docker-compose up` starten. Ein Blick auf `docker info` deutet darauf hin, dass die Container resp. Images nicht sauber entfernt wurden. Daher immer beenden mit `docker-compose down`.
+
+### Eureka Connection
+
+Immer wieder begegnen wir beim Starten einer Fehlermeldung `com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect`. Leider bislang keine Lösung gefunden.
+
+### Verknüpfte Daten
+
+Das Verknüpfen der Daten im Partner-Contact-Service bereitet einiges an Kopfzerbrechen. Dies insbesondere weil nun nicht mehr nur eine Entität pro Service bezogen wird. Es scheint Probleme beim Aufrufen der API URL zu geben. Offenbar haben wir diese noch nicht korrekt in der jeweiligen Annotation in den Clients erfasst. Die URLs für die REST Abfragen im Partner-Service und Contact-Service werden automatisch durch die verwendeten Starters generiert. Die Bezeichnungen scheinen auch pluralisiert zu werden. ([Reading](https://docs.spring.io/spring-data/rest/docs/current/reference/html/#customizing-sdr.configuring-the-rest-url-path)). Diese Unklarheiten haben viel Zeit gekostet und sind noch nicht vollständig gelöst.
 
 ### Frontend Proxy
 
