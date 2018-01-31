@@ -21,12 +21,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class PartnerContactController implements ResourceProcessor<RepositoryLinksResource> {
-
-    @Qualifier("partner-service")
+    
     @Autowired
     private PartnerClient partnerClient;
 
-    @Qualifier("contact-service")
     @Autowired
     private ContactClient contactClient;
 
