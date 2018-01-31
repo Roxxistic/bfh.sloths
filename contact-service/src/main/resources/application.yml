@@ -1,12 +1,12 @@
 # Spring properties
 spring:
-  h2:
-      console:
-        enabled: true
   application:
-    name: contact-service # the Service ID
-
-# Discovery Server Access
+    name: contact-service   # the Service ID
+  h2:
+    console:
+      enabled: true
+  
+# Register this Service as Eureka Client with the Eureka Server
 eureka:
   client:
     serviceUrl:

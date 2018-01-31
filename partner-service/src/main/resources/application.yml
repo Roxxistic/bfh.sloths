@@ -1,10 +1,10 @@
 # Spring properties
 spring:
-  h2:
-      console:
-        enabled: true
   application:
-    name: partner-service # the Service ID
+    name: partner-service  # the Service ID
+  h2:
+    console:
+      enabled: true
 
 # Discovery Server Access
 eureka:

@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class ContactServiceApplication extends RepositoryRestConfigurerAdapter {
 
 	public static void main(String[] args) {
